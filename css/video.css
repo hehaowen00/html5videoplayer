@@ -15,7 +15,7 @@ body {
     overflow: hidden;
 }
 
-video {
+.video-container video {
     width: 100%;
 }
 
@@ -39,10 +39,10 @@ video {
     max-width: calc(100% - 25px);
     white-space: nowrap;
     z-index: 1;
+    font-weight: 600;
 }
 
 .video-controls {
-    /* background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)); */
     background-color: rgba(28,28,28,0.5);
     bottom: 0;
     display: flex;
@@ -130,9 +130,6 @@ input[type=range]:focus {
     border-color: grey;
     color: grey;
     margin: 0;
-}
-
-.progress-bar input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
@@ -144,38 +141,16 @@ input[type=range]:focus {
     cursor: pointer;
 }
 
-.progress-bar input[type=range]::-ms-thumb {
-    height: 8px;
-    width: 9px;
-    background: #ffffff;
-    cursor: pointer;
-}
-
 .progress-bar input[type="range"]::-moz-range-progress {
     background-color: #00b3ff; 
     height: 5px;
     border-radius: 1.61803398875px;
 }
-  
-.progress-bar input[type=range]::-ms-track {
-    width: 100%;
-    cursor: pointer;
-    height: 100%;
-    background: transparent; 
-    border-color: transparent;
-    color: transparent;
-}
 
 .volume-slider input[type=range] {
     -webkit-appearance: none;
-    -moz-appearance: none;
     width: 100%;
     background: transparent;
-}
-
-.volume-slider input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    -moz-appearance: none;
 }
 
 .volume-slider input[type=range]::-moz-range-thumb {
@@ -247,9 +222,8 @@ input[type=range]:focus {
 .unselectable {
     user-select: none;
     -moz-user-select: none;
-    -khtml-user-select: none;
+    -ms-user-select: none;
     -webkit-user-select: none;
-    -o-user-select: none;
 }
 
 .dropup {
@@ -269,7 +243,6 @@ input[type=range]:focus {
     z-index: 1;
     left: -120px;
     border-radius: 1.61803398875px;
-    padding-bottom: 6px;
 }
 
 .dropup-content a {
@@ -278,8 +251,12 @@ input[type=range]:focus {
     padding: 6px 8px;
     text-decoration: none;
     display: block;
-    height: 14px;
+    height: 20px;
     transition: all .15s;
+}
+
+.dropup-content a:hover {
+    background-color: rgba(70,70,70,0.4);
 }
 
 .captions {
@@ -301,7 +278,7 @@ input[type=range]:focus {
     border-radius: 1.61803398875px;
 }
 
-.st-sub {
+.st-opt {
     display: none;
 }
 

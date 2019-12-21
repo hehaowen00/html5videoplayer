@@ -12,14 +12,49 @@ const btns = controls.querySelector('.buttons');
 const play_btn = btns.querySelector('#play-button');
 const fs_btn = btns.querySelector('#fs-button');
 const st_btn = btns.querySelector('#st-button');
-const st_menu = btns.querySelector('.dropup-content');
+const st_menu = btns.querySelector('#st-menu');
 const st_main = st_menu.querySelector("#st-main");
-const st_sub = st_menu.querySelector(".sub");
-const time_index = btns.querySelector('#time');
+const st_sub = st_menu.querySelector("#st-sub");
+const time_index = btns.querySelector('.time-label');
 const mute_btn = btns.querySelector('#speaker-button');
 const volume_slider = btns.querySelector('#volume-slider');
 
 var paused = true, st_open = false;
+
+const stClick = (element) => {
+    element.children[1].classList.add('inactive');
+    const id = element.parentNode.id;
+    Array.from(st_main.querySelectorAll(`div:not(#${id})`))
+        .map((el) => el.classList.add("inactive"));
+    st_sub.querySelector("#" + id).classList.add("active");
+};
+
+function resetSt(element) {
+    Array.from(st_main.querySelectorAll(".inactive"))
+        .map(node => node.classList.remove("inactive"));
+    
+    const temp = st_sub.querySelector(".active");
+
+    if (temp != null) {
+        temp.classList.remove("active");
+    }
+    
+    if (element == null) {
+        return;
+    }
+
+    var valueText = element.textContent;
+
+    if (element.parentNode.id == "option1") {
+        if (valueText == "Normal") {
+            valueText = "1.0";
+        }
+
+        video.playbackRate = valueText;
+    }
+
+    st_main.querySelector("#" + element.parentNode.id).querySelector(".st-value").textContent = element.textContent;
+}
 
 const showControls = () => {
     title.style.transform = controls.style.transform = 'translateY(0)';
@@ -92,6 +127,7 @@ fs_btn.addEventListener('click', e => {
         }
     }
 });
+
 st_menu.style.display = 'none';
 
 st_btn.addEventListener('click', e => {
@@ -101,6 +137,7 @@ st_btn.addEventListener('click', e => {
     } else {
         st_menu.style.display = 'none';
         st_open = false;
+        resetSt(null);
     }
 });
 
@@ -156,18 +193,6 @@ window.onload = () => {
     })
 
     progress_slider.value = 0;
-}
-
-const stClick = (el) => {
-    el.children[0].children[1].classList.add('inactive');
-    Array.from(st_main.querySelectorAll(`div:not(#${id})`)).map((el) => el.classList.add("inactive"));
-    st_sub.querySelector("#" + el.id).classList.add("active");
-};
-
-function resetSt() {
-    const nodes = Array.from(st_main.querySelectorAll(".inactive"));
-    nodes.map(node => { node.classList.remove("inactive")});
-    st_sub.querySelector(".active").classList.remove("active");
 }
 
 // if (Hls.isSupported()) {
