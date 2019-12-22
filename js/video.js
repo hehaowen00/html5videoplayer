@@ -4,7 +4,7 @@ const controls = container.querySelector('.video-controls');
 
 const title = container.querySelector('.video-title');
 const captions = container.querySelector('.captions');
-const caption_display = captions.querySelector("#caption");
+const caption_text = captions.querySelector("#caption");
 
 const progress_slider = controls.querySelector('#progress-slider');
 const progress_state = controls.querySelector(".progress-state");
@@ -21,6 +21,23 @@ const st_btn = btns.querySelector('#st-button');
 const st_menu = btns.querySelector('#st-menu');
 const st_main = st_menu.querySelector("#st-main");
 const st_sub = st_menu.querySelector("#st-sub");
+
+const loadSubtitles = () => {
+    const tracks = Array.from(video.textTracks).sort((a, b) => {
+        return a.label.localeCompare(b.label);
+    });
+
+    const listing = st_sub.querySelector("#option2");
+
+    for (var i = 0; i < tracks.length; i++) {
+        const track = tracks[i];
+        const lang = track.label;
+
+        var n = document.createElement('div');
+        n.innerHTML = `<a href="#" onClick="resetSt(this)"><span class="left">${lang}</span></a>`.trim();
+        listing.appendChild(n.children[0]);
+    }
+};
 
 var paused = true, st_open = false;
 volume_slider.value = 100;
@@ -95,6 +112,7 @@ video.addEventListener('loadeddata', () => {
     duration_label = toHHMMSS(video.duration);
     time_index.textContent = toHHMMSS(video.currentTime) + "/" + duration_label;
     progress_slider.max = video.duration;
+    loadSubtitles();
  }, false);
 
  play_btn.addEventListener('click', e => {
@@ -120,7 +138,7 @@ fs_btn.addEventListener('click', e => {
         } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
-        caption_display.style.fontSize = "20px";
+        caption_text.style.fontSize = "20px";
     } else {
         element = container;
         if (element.requestFullscreen) {
@@ -132,7 +150,7 @@ fs_btn.addEventListener('click', e => {
         } else if (element.msRequestFullscreen) {
             element.msRequestFullscreen();
         }
-        caption_display.style.fontSize = "24px";
+        caption_text.style.fontSize = "24px";
     }
 });
 
@@ -201,31 +219,17 @@ window.onload = () => {
     progress_slider.value = 0;
 };
 
-const loadSubtitles = () => {
-    const tracks = video.textTracks;
-    const listing = st_sub.querySelector("#option2");
-
-    for (var i = 0; i < tracks.length; i++) {
-        const track = tracks[i];
-        const lang = track.label;
-
-        var n = document.createElement('div');
-        n.innerHTML = `<a href="#" onClick="resetSt(this)"><span class="left">${lang}</span></a>`.trim();
-        listing.appendChild(n.children[0]);
-    }
-};
-
 const enableSubtitle = (lang) => {
     video.textTracks[0].mode = 'showing';
     var track = video.textTracks[0];
 
     track.oncuechange = (event) => {
         if (track.activeCues[0] == undefined) {
-            caption.textContent = "";
-            caption.style.display = 'none';
+            caption_text.textContent = "";
+            caption_text.style.display = 'none';
         } else {
-            caption.textContent = track.activeCues[0].text;
-            caption.style.display = 'inline-block';
+            caption_text.textContent = track.activeCues[0].text;
+            caption_text.style.display = 'inline-block';
         }
     };
 };

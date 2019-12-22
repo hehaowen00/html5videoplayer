@@ -21,13 +21,14 @@ body {
 
 .video-title {
     background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5));
-    font-size: 18px;
+    font-size: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 2.5px;
     padding-left: 15px;
     padding-right: 10px;
     padding-bottom: 5px;
+    height: 30px;
     position: absolute;
 	text-shadow:
         -1px -1px 0 #000,
