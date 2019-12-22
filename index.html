@@ -11,12 +11,16 @@
     <div class="temp">
         <div class="video-container">
             <div class="video-title unselectable">video.webm</div>
-            <video id="video" oncontextmenu="return false;" src="video.webm"></video>
+            <video id="video" oncontextmenu="return false;">
+                <source src="video.webm" type="video/webm">
+                <!-- <track label="English" kind="subtitles" srclang="en" src="./track.vtt" default> -->
+            </video>
             <div class='captions unselectable'>
-                <span id='caption'>&lt;caption&gt;</span>
+                <div id='caption'></div>
             </div>
             <div class="video-controls">
                 <div class="progress-bar">
+                    <div class="progress-state"></div>
                     <input id='progress-slider' type='range' min='0' value='0' class='progress-bar right' style="z-index: 2;">
                 </div>
                 <div class="buttons">
@@ -46,7 +50,7 @@
                             </div>
                             <div id="st-sub">
                                 <div id="option1" class="st-opt">
-                                    <hr>
+                                    <hr class="sep">
                                     <a href="#" onClick="resetSt(this)"><span class="left st-item">0.25</span></a>
                                     <a href="#" onClick="resetSt(this)"><span class="left st-item">0.5</span></a>
                                     <a href="#" onClick="resetSt(this)"><span class="left st-item">Normal</span></a>
@@ -55,14 +59,11 @@
                                     <a href="#" onClick="resetSt(this)"><span class="left st-item">2</span></a>                        
                                 </div>
                                 <div id="option2" class="st-opt">
-                                    <hr>
+                                    <hr class="sep">
                                     <a href="#" onClick="resetSt(this)"><span class="left">Disabled</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left">Chinese</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left">English</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left">Japanese</span></a>
                                 </div>
                                 <div id="option3" class="st-opt">
-                                    <hr>
+                                    <hr class="sep">
                                     <a href="#" onClick="resetSt(this)"><span class="left">720p</span></a>
                                     <a href="#" onClick="resetSt(this)"><span class="left">1080p</span></a>
                                 </div>
