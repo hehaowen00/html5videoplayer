@@ -1,86 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
     <title>html5videoplayer</title>
-    <link rel="stylesheet" href="./css/video.css" type="text/css" />
+    <link rel='stylesheet' href='./css/video.css' type='text/css' />
 </head>
 <body>
-    <div class="temp">
-        <div class="video-container">
-            <div class="video-title unselectable">video.webm</div>
-            <video id="video" oncontextmenu="return false;">
-            </video>
-            <div class='captions unselectable'>
-                <div id='caption'></div>
-            </div>
-            <div class="video-controls">
-                <div class="progress-bar">
-                    <div class="progress-state"></div>
-                    <input id='progress-slider' type='range' min='0' value='0' class='progress-bar right' style="z-index: 2;">
-                </div>
-                <div class="buttons">
-                    <button id="play-button" class="play">
-                        <img id='play' src='./svg/play_icon.svg' class='icon'>
-                        <img id='pause' src='./svg/pause_icon.svg' class='icon'>
-                    </button>
-                    <span class="time-label unselectable"></span>
-                    <button id="fs-button" class="svg-icon right">
-                        <img src='./svg/expand_icon.svg' class='icon'>
-                    </button>
-                    <div class='right dropup' style="display: inline-block;">
-                        <button id="st-button" class='svg-icon dropbtn' style="top: 50%; transform: translateY(10%);">
-                            <img src="./svg/gear_icon.svg" class="icon">
-                        </button>
-                        <div id="st-menu" class="dropup-content">
-                            <div id="st-main">
-                                <div id="option1" class="st-item">
-                                    <a href="#" onClick="stClick(this)" class="st-item"><span class="left bold">Playback Speed</span><span class="right st-value">1x</span></a>
-                                </div>
-                                <div id="option2" class="st-item">
-                                    <a href="#" onClick="stClick(this)"><span class="left bold">Subtitles / CC</span><span class="right st-value">Disabled</span></a>
-                                </div>
-                                <div id="option3" class="st-item">
-                                    <a href="#" onClick="stClick(this)" class="st-item"><span class="left bold">Quality</span><span class="right st-value">1080p</span></a>
-                                </div>
-                            </div>
-                            <div id="st-sub">
-                                <div id="option1" class="st-opt">
-                                    <hr class="sep">
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">0.25</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">0.5</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">Normal</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">1.25</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">1.5</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left st-item">2</span></a>                        
-                                </div>
-                                <div id="option2" class="st-opt">
-                                    <hr class="sep">
-                                    <a href="#" onClick="resetSt(this)"><span class="left">Disabled</span></a>
-                                </div>
-                                <div id="option3" class="st-opt">
-                                    <hr class="sep">
-                                    <a href="#" onClick="resetSt(this)"><span class="left">720p</span></a>
-                                    <a href="#" onClick="resetSt(this)"><span class="left">1080p</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='right volume-slider'>
-                        <input id='volume-slider' type='range' min='1' max='100' class='volume-slider right'>
-                    </div>
-                    <button id="speaker-button" class="svg-icon sound right">
-                        <img src='./svg/speaker_icon.svg' class='icon'>
-                        <img src='./svg/mute_icon.svg' class='icon'>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class='temp'>
+        <video id='test-dev' src='/video.webm'>
+            <track label="English" kind="subtitles" srclang="en" src="track.vtt" />
+        </video>
     </div>
-
-    <script src="./js/hls.min.js"></script>
-    <script src="./js/video.js"></script>
+    <script src='./js/hls.min.js'></script>
+    <script src='./js/video_dev.js'></script>
+    <script>
+        var player = new VideoPlayer(document.getElementById('test-dev'), {
+            title: 'video.webm',
+        });
+        player.add_event_handlers();
+    </script>
 </body>
 </html>

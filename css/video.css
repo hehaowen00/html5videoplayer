@@ -22,14 +22,15 @@ body {
 .video-title {
     background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5));
     font-size: 20px;
+    font-weight: 500;
+    height: 30px;
     overflow: hidden;
-    text-overflow: ellipsis;
     padding: 2.5px;
     padding-left: 15px;
     padding-right: 10px;
     padding-bottom: 5px;
-    height: 30px;
     position: absolute;
+    text-overflow: ellipsis;
 	text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
@@ -40,7 +41,6 @@ body {
     max-width: calc(100% - 25px);
     white-space: nowrap;
     z-index: 1;
-    font-weight: 500;
 }
 
 .video-controls {
@@ -65,9 +65,8 @@ body {
     color: white;
     cursor: pointer;
     font-size: 16px;
-    outline: 0;
-
     margin: 0;
+    outline: 0;
     position: relative;
     top: 40%;
     transform: translateY(-40%);
@@ -77,7 +76,6 @@ body {
 .buttons button:before {
     color: white;
     display: inline-block;
-    font-family: 'Font Awesome 5 Free';
     font-size: 16px;
     height: 18px;
     width: 18px;
@@ -118,18 +116,18 @@ body {
     transform: translateY(0.5px);
 }
 
+.progress-slider {
+    z-index: 2;
+}
+
 .progress-state {
     background-color: #00b3ff; 
     border-radius: 1.61803398875px;
     height: 5px;
-    width: 50px;
+    width: 0;
     z-index: 1;
     display: block;
     position: absolute;
-}
-
-input[type=range]:focus {
-    outline: none;
 }
 
 .progress-bar input[type=range] {
@@ -152,10 +150,10 @@ input[type=range]:focus {
 }
 
 .progress-bar input[type=range]::-moz-range-thumb {
-    background: #ffffff;
-    cursor: pointer;
     height: 10px;
     width: 10px;
+    background: #ffffff;
+    cursor: pointer;
 }
 
 .progress-bar input[type=range]::-webkit-slider-thumb {
@@ -275,21 +273,21 @@ input[type=range]:focus {
 
 .dropup {
     position: relative;
-    display: inline-block;
+    display: block;
 }
 
 .dropup-content {
+    background-color: rgba(28,28,28,0.9);
+    border-radius: 1.61803398875px;
+    bottom: 45px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    cursor: pointer;
     font-size: 13px;
     position: absolute;
-    bottom: 45px;
-    background-color: rgba(28,28,28,0.9);
+    left: -120px;
     min-width: 190px;
     width: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
     z-index: 1;
-    left: -120px;
-    border-radius: 1.61803398875px;
 }
 
 .dropup-content a {
@@ -351,4 +349,9 @@ input[type=range]:focus {
 .video-container video::cue {
     color: transparent !important;
     display: none !important;
+}
+
+.settings {
+    top: 50%;
+    transform: translateY(10%) !important;
 }

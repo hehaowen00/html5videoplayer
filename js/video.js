@@ -1,3 +1,5 @@
+// const player = new VideoPlayer(null, { title: '', controls: [ 'title', 'settings', 'playback', 'subtitles', 'quality', 'volume', 'mute'] });
+
 const container = document.querySelector('.video-container');
 const video = container.querySelector('video');
 const controls = container.querySelector('.video-controls');
