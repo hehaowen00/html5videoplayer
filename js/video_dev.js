@@ -72,18 +72,31 @@ class VideoPlayer {
         this.video = videoElement.cloneNode(true);
 
         this.container = createElement('div', {classes: ['video-container', 'unselectabe']});
+        videoElement.parentNode.replaceChild(this.container, videoElement);
 
+        this.video.addEventListener('loadeddata', e => {
+            this.init();
+            this.add_event_handlers();
+            this.init_settings_events();
+
+            setAttrs(this.pslider, {'max': this.video.duration});
+            this.video_duration = toHHMMSS(this.video.duration);
+            this.time_label.textContent = toHHMMSS(0) + '/' + this.video_duration;
+        });       
+    }
+
+    init() {
         this.init_title();
         this.init_captions();
         this.init_controls();
         
-        videoElement.parentNode.replaceChild(this.container, videoElement);
         this.container.appendChild(this.title);
         this.container.appendChild(this.video);
         this.container.appendChild(this.captions);
         this.container.appendChild(this.controls);
 
         this.state = {
+            active_track: undefined,
             is_playing: false,
             settings_open: false,
         };
@@ -239,7 +252,7 @@ class VideoPlayer {
         this.volume_slider.appendChild(this.vslider);
         setAttrs(this.vslider, {
             'type': 'range',
-            'min': '1',
+            'min': '0',
             'max': '100',
             'value': '100'
         });
@@ -252,13 +265,6 @@ class VideoPlayer {
     }
 
     add_event_handlers() {
-        this.video.addEventListener('loadeddata', e => {
-            setAttrs(this.pslider, {'max': this.video.duration});
-            this.init_settings_events();
-            this.video_duration = toHHMMSS(this.video.duration);
-            this.time_label.textContent = toHHMMSS(0) + '/' + this.video_duration;
-        });
-
         this.video.addEventListener('click', e => {
             this.play_btn.click();
         });
@@ -386,6 +392,10 @@ class VideoPlayer {
             this.playback_link.style.display = 'block';
             this.captions_link.style.display = 'block';
             this.quality_link.style.display = 'block';
+
+            this.playback_value.style.display = 'block';
+            this.captions_value.style.display = 'block';
+            this.quality_value.style.display = 'block';
             
             this.playback_options.style.display = 'none';
             this.captions_options.style.display = 'none';
@@ -441,12 +451,36 @@ class VideoPlayer {
         });
 
         const captions_option_click = (e) => {
-            console.log(e.target.textContent);
+            let label = e.target.textContent;
+            let tracks = Array.from(this.video.textTracks)
+            
+            if (label === 'Disabled') {
+                this.state.active_track = undefined;
+            } else if (label !== '') {
+                tracks.filter(track => track.label === label)
+                .map(track => {
+                    this.state.active_track = track;
+                    this.state.active_track.mode = 'showing';
+                    this.state.active_track.oncuechange = () => {
+                        if (this.state.active_track.activeCues[0] == undefined) {
+                            this.caption.textContent = '';
+                            this.caption.style.display = 'none';
+                        } else {
+                            this.caption.textContent = track.activeCues[0].text;
+                            this.caption.style.display = 'inline-block';
+                        }
+                    };
+                });
+
+                this.captions_value.textContent = label;
+            }
+
+            reset_menu();
         };
 
-        this.captions_options.appendChild(addMenuOption('Disabled', null));
+        this.captions_options.appendChild(addMenuOption('Disabled', captions_option_click));
         Array.from(this.video.textTracks).map((track) => {
-            this.captions_options.appendChild(addMenuOption(track.label, null));
+            this.captions_options.appendChild(addMenuOption(track.label, captions_option_click));
         });
 
         this.captions_link.addEventListener('click', () => {
