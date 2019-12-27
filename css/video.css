@@ -1,15 +1,6 @@
-body {
-    max-width: 100%;
-}
-
-.temp {
-    max-width: 900px;
-}
-
 .video-container {
     background: black;
     color: white;
-    display: flex;
     font-family: Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
     position: relative;
     overflow: hidden;
@@ -191,7 +182,7 @@ body {
 .volume-slider input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     cursor: pointer;
-    transform: translateY(10px);
+    /* transform: translateY(10px); */
     border-radius: 1.61803398875px;
     height: 5px;
     background: white; 
@@ -212,9 +203,11 @@ body {
     height: 10px;
     width: 10px;
     background: #ffffff;
+    border-color: grey;
+    border-width: 1px;
     cursor: pointer;
     transform: translateY(-2.5px);
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .volume-slider input[type="range"]::-moz-range-progress {
@@ -235,7 +228,7 @@ body {
 
 .icon {
     display: block;
-    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(19deg) brightness(111%) contrast(101%);;
+    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(19deg) brightness(111%) contrast(101%);
     height: 25px;
     overflow: hidden;
     transform: translateY(5%);

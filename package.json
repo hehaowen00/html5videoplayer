@@ -1,0 +1,24 @@
+{
+  "name": "html5videoplayer",
+  "version": "1.0.0",
+  "description": "Icons used in this project are sourced from [https://thenounproject.com/](https://thenounproject.com/).",
+  "main": "index.js",
+  "scripts": {
+    "build": "svg-sprite-generate -d ./svg/ -o ./svg/icons.svg",
+    "test": "http-server ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hehaowen00/html5videoplayer.git"
+  },
+  "author": "hehaowen00",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/hehaowen00/html5videoplayer/issues"
+  },
+  "homepage": "https://github.com/hehaowen00/html5videoplayer#readme",
+  "dependencies": {
+    "http-server": "^0.12.0",
+    "svg-sprite-generator": "0.0.7"
+  }
+}

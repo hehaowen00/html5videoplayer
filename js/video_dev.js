@@ -1,10 +1,10 @@
-const setAttrs = (el, attrs) => {
+const setAttrs = function (el, attrs) {
     for (var key in attrs) {
         el.setAttribute(key, attrs[key]);
     }
 }
 
-const toHHMMSS = (secs) => {
+const toHHMMSS = function (secs) {
     var sec_num = parseInt(secs, 10)
     var hours   = Math.floor(sec_num / 3600)
     var minutes = Math.floor(sec_num / 60) % 60
@@ -16,13 +16,16 @@ const toHHMMSS = (secs) => {
         .join(":")
 };
 
-const createElement = (type, {id, classes} = {}) => {
+const createElement = function (type, {id, classes, attrs} = {}) {
     element = document.createElement(type);
     if (classes !== undefined) {
         element.classList.add(...classes);
     }
     if (id !== undefined) {
         element.id = id;
+    }
+    if (attrs !== undefined) {
+        setAttrs(element, attrs);
     }
     return element;
 };
