@@ -4,8 +4,8 @@
   "description": "Icons used in this project are sourced from [https://thenounproject.com/](https://thenounproject.com/).",
   "main": "index.js",
   "scripts": {
-    "build": "svg-sprite-generate -d ./svg/ -o ./svg/icons.svg",
-    "test": "http-server ."
+    "build": "svg-sprite-generate -d ./svg/ -o ./dist/svg/icons.svg",
+    "test": "cd example && http-server ."
   },
   "repository": {
     "type": "git",

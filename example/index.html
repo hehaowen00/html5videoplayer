@@ -4,17 +4,22 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
     <title>html5videoplayer</title>
-    <link rel='stylesheet' href='/css/video.css?1' type='text/css' />
+    <link rel='stylesheet' href='../css/video.css?0' type='text/css' />
 </head>
 <body>
     <div class='temp'>
-        <video id='test-dev' src='/video.webm'>
+        <video id='test-dev' src='video.webm'>
             <track label="English" kind="subtitles" srclang="en" src="track.vtt" />
         </video>
     </div>
-    <script src='/js/hls.min.js'></script>
-    <script src='/js/video_dev.js?1'></script>
+    <script src='../js/hls.min.js?0'></script>
+    <script src='../js/video_dev.js?0'></script>
     <script>
         var player = new VideoPlayer(document.getElementById('test-dev'), {
             title: 'video.webm',
