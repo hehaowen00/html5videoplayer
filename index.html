@@ -18,13 +18,16 @@
             <track label="English" kind="subtitles" srclang="en" src="track.vtt" />
         </video>
     </div>
+    
     <script src='/js/hls.min.js'></script>
-    <script src='/js/video_dev.js'></script>
+    <script src='/js/videoplayer.js'></script>
+
     <script>
         var player = new VideoPlayer(document.getElementById('test-dev'), {
             title: 'video.webm',
         });
     </script>
+    
     <style>
         body {
             max-width: 100%;
