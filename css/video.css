@@ -136,6 +136,10 @@
     -moz-appearance: none;
 }
 
+.video-container:focus {
+    outline: none;
+}
+
 .progress-bar input[type=range]::-webkit-slider-runnable-track {
     background: transparent;
     height: 5px;
