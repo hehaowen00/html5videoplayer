@@ -1,8 +1,4 @@
-const setAttrs = function (el, attrs) {
-    for (var key in attrs) {
-        el.setAttribute(key, attrs[key]);
-    }
-}
+const setAttrs = (el, attrs) => Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
 
 const toHHMMSS = function (secs) {
     var sec_num = parseInt(secs, 10)
@@ -100,6 +96,7 @@ class VideoPlayer {
 
         this.state = {
             active_track: undefined,
+            is_fullscreen: false,
             is_playing: false,
             settings_open: false,
         };
@@ -145,13 +142,7 @@ class VideoPlayer {
         this.pbar = createElement('div', {classes: ['progress-bar']});
         this.pstate = createElement('div', {classes: ['progress-state']});
         
-        this.pslider = createElement('input', {classes: ['progress-bar', 'right']});
-        setAttrs(this.pslider, {
-            'type': 'range',
-            'min': '0',
-            'value': '0'
-        });
-
+        this.pslider = createElement('input', {classes: ['progress-bar', 'right'], attrs: {'type': 'range', 'min': '0', 'value': '0'}});
         this.pbar.appendChild(this.pstate);
         this.pbar.appendChild(this.pslider);     
     }
@@ -251,14 +242,8 @@ class VideoPlayer {
 
     init_volume_slider() {
         this.volume_slider = createElement('div', {classes: ['volume-slider', 'right']});
-        this.vslider = createElement('input');
+        this.vslider = createElement('input', {attrs: {'type': 'range', 'min': '0', 'max': '100', 'value': '100'}});
         this.volume_slider.appendChild(this.vslider);
-        setAttrs(this.vslider, {
-            'type': 'range',
-            'min': '0',
-            'max': '100',
-            'value': '100'
-        });
     }
 
     init_mute_btn() {
@@ -289,16 +274,18 @@ class VideoPlayer {
         const showControls = () => {
             this.title.style.transform = this.controls.style.transform = 'translateY(0)';
             this.captions.style.transform = 'translateY(0)';
+            this.container.style.cursor = 'auto';
         };
 
         const hideControls = () => {
             if (!this.state.is_playing | this.state.settings_open) {
                 return;
             }
-
+            
             this.title.style.transform = 'translateY(-100%)';
             this.captions.style.transform = 'translateY(35px)';
             this.controls.style.transform = 'translateY(100%) translateY(-5px)';
+            this.container.style.cursor = 'none';
         };
 
         this.timeout = setTimeout(0);
@@ -356,35 +343,45 @@ class VideoPlayer {
             this.video.muted = !this.video.muted;
         });
 
+        const onFullScreen = () => {
+            this.state.is_fullscreen = true;
+            this.caption.style.fontSize = '24px';
+        };
+
+        const exitFullScreen = () => {
+            this.state.is_fullscreen = false;
+            this.caption.style.fontSize = '20px';
+        };
+
         this.fs_btn.addEventListener('click', () => {
             if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    this.caption.style.fontSize = "20px";
+                    exitFullScreen();
                 } else if (document.mozCancelFullScreen) {
                     document.mozCancelFullScreen();
-                    this.caption.style.fontSize = "20px";
+                    exitFullScreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                    this.caption.style.fontSize = "20px";
+                    exitFullScreen();
                 } else if (document.msExitFullscreen) {
                     document.msExitFullscreen();
-                    this.caption.style.fontSize = "20px";
+                    exitFullScreen();
                 }
             } else {
                 element = this.container;
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
-                    this.caption.style.fontSize = "24px";
+                    onFullScreen();
                 } else if (element.mozRequestFullScreen) {
                     element.mozRequestFullScreen();
-                    this.caption.style.fontSize = "24px";
+                    onFullScreen();
                 } else if (element.webkitRequestFullscreen) {
                     element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                    this.caption.style.fontSize = "24px";
+                    onFullScreen();
                 } else if (element.msRequestFullscreen) {
                     element.msRequestFullscreen();
-                    this.caption.style.fontSize = "24px";
+                    onFullScreen();
                 }
             }
         });
