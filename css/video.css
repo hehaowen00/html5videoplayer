@@ -138,6 +138,7 @@
 
 .progress-bar input[type=range]::-webkit-slider-runnable-track {
     background: transparent;
+    height: 5px;
     -webkit-appearance: none !important;
 }
 
@@ -154,7 +155,8 @@
     cursor: pointer;
     height: 10px;
     width: 10px;
-    border-radius: 4px;
+    border-radius: 5px;
+    transform: translateY(-2.5px);
 }
 
 .progress-bar input[type=range]::-moz-range-progress {
@@ -183,7 +185,6 @@
 .volume-slider input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     cursor: pointer;
-    /* transform: translateY(10px); */
     border-radius: 1.61803398875px;
     height: 5px;
     background: white; 
