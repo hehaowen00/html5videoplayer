@@ -372,7 +372,6 @@ class VideoPlayer {
                     exitFullScreen();
                 }
             } else {
-                console.log(this.container);
                 var element = this.container;
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
