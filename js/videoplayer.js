@@ -478,7 +478,9 @@ class VideoPlayer {
                         }
                     };
                 });
+            }
 
+            if (label !== '') {
                 this.captions_value.textContent = label;
             }
 
