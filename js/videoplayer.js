@@ -458,7 +458,11 @@ class VideoPlayer {
             let tracks = Array.from(this.video.textTracks)
             
             if (label === 'Disabled') {
+                this.state.active_track.oncuechange = undefined;
+                this.state.active_track.mode = 'none';
                 this.state.active_track = undefined;
+                this.caption.textContent = '';
+                this.caption.style.display = 'none';
             } else if (label !== '') {
                 tracks.filter(track => track.label === label)
                 .map(track => {
