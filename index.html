@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class='temp'>
-        <video id='test-dev' src='video.webm'>
+        <video id='player' src='video.webm'>
             <track label="English" kind="subtitles" srclang="en" src="track.vtt" />
         </video>
     </div>
@@ -19,7 +19,7 @@
     <script src='/js/videoplayer.js'></script>
 
     <script>
-        var player = new VideoPlayer(document.getElementById('test-dev'), {
+        var player = new VideoPlayer(document.getElementById('player'), {
             title: 'video.webm',
         });
     </script>

@@ -12,8 +12,11 @@ const toHHMMSS = function (secs) {
         .join(":")
 };
 
-const createElement = function (type, {id, classes, attrs} = {}) {
-    element = document.createElement(type);
+const createElement = function (element_type, {id, classes, attrs} = {}) {
+    if (element_type == '' || element_type == undefined || element_type == null) {
+        throw "invalid input for element_type: " + element_type;
+    }
+    var element = document.createElement(element_type);
     if (classes !== undefined) {
         element.classList.add(...classes);
     }
@@ -253,11 +256,11 @@ class VideoPlayer {
     }
 
     add_event_handlers() {
-        this.video.addEventListener('click', e => {
+        this.video.addEventListener('mouseup', () => {
             this.play_btn.click();
         });
 
-        this.video.addEventListener('timeupdate', e => {
+        this.video.addEventListener('timeupdate', () => {
             const pos = this.video.currentTime / this.video.duration;
             this.pslider.value = this.video.currentTime;
 
@@ -305,11 +308,11 @@ class VideoPlayer {
             hideControls();
         });
 
-        this.controls.addEventListener('click', () => {
+        this.controls.addEventListener('mouseup', () => {
             toggleControls();
         });
 
-        this.play_btn.addEventListener('click', e => {
+        this.play_btn.addEventListener('click', () => {
             if (this.state.is_playing) {
                 this.video.pause();
                 this.play_btn.classList.add('play');
@@ -353,7 +356,7 @@ class VideoPlayer {
             this.caption.style.fontSize = '20px';
         };
 
-        this.fs_btn.addEventListener('click', () => {
+        this.fs_btn.addEventListener('mouseup', () => {
             if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
@@ -369,7 +372,8 @@ class VideoPlayer {
                     exitFullScreen();
                 }
             } else {
-                element = this.container;
+                console.log(this.container);
+                var element = this.container;
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
                     onFullScreen();
@@ -402,7 +406,7 @@ class VideoPlayer {
             this.quality_options.style.display = 'none';
         };
 
-        this.settings_btn.addEventListener('click', () => {
+        this.settings_btn.addEventListener('mouseup', () => {
             if (this.settings_menu.style.display == 'none') {
                 this.settings_menu.style.display = 'block';
                 this.state.settings_open = true;
@@ -418,7 +422,7 @@ class VideoPlayer {
             let item = createElement('a');
             let span = createElement('span', {classes: ['left']});
 
-            item.addEventListener('click', fn);
+            item.addEventListener('mouseup', fn);
             item.appendChild(span);
             span.textContent = text;
 
@@ -443,7 +447,7 @@ class VideoPlayer {
                 addMenuOption(text, playback_option_click));
         });
 
-        this.playback_link.addEventListener('click', () => {
+        this.playback_link.addEventListener('mouseup', () => {
             this.playback_options.style.display = 'block';
             this.playback_value.style.display = 'none';
             this.captions_link.style.display = 'none';
@@ -489,7 +493,7 @@ class VideoPlayer {
             this.captions_options.appendChild(addMenuOption(track.label, captions_option_click));
         });
 
-        this.captions_link.addEventListener('click', () => {
+        this.captions_link.addEventListener('mouseup', () => {
             this.captions_options.style.display = 'block';
             this.captions_value.style.display = 'none';
             this.playback_link.style.display = 'none';
