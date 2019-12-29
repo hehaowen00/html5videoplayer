@@ -298,7 +298,7 @@ class VideoPlayer {
 
             this.title.style.transform = 'translateY(-100%)';
             this.captions.style.transform = 'translateY(35px)';
-            this.controls.style.transform = 'translateY(100%) translateY(-6px)';
+            this.controls.style.transform = 'translateY(100%) translateY(-5px)';
         };
 
         this.timeout = setTimeout(0);
