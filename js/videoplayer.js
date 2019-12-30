@@ -455,6 +455,10 @@ class VideoPlayer {
 
         const captions_option_click = (e) => {
             let label = e.target.textContent;
+            if (label === '') {
+                return;
+            }
+
             let tracks = Array.from(this.video.textTracks)
             
             if (label === 'Disabled') {
@@ -463,7 +467,7 @@ class VideoPlayer {
                 this.state.active_track = undefined;
                 this.caption.textContent = '';
                 this.caption.style.display = 'none';
-            } else if (label !== '') {
+            } else {
                 tracks.filter(track => track.label === label)
                 .map(track => {
                     this.state.active_track = track;
