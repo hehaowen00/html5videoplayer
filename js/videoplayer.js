@@ -13,19 +13,24 @@ const toHHMMSS = function (secs) {
 };
 
 const createElement = function (element_type, {id, classes, attrs} = {}) {
-    if (element_type == '' || element_type == undefined || element_type == null) {
-        throw "invalid input for element_type: " + element_type;
+    if (element_type === '' || element_type === undefined || element_type === null) {
+        throw `invalid input for element_type: '${element_type}'`;
     }
+
     var element = document.createElement(element_type);
+
     if (classes !== undefined) {
         element.classList.add(...classes);
     }
+
     if (id !== undefined) {
         element.id = id;
     }
+
     if (attrs !== undefined) {
         setAttrs(element, attrs);
     }
+
     return element;
 };
 
@@ -72,8 +77,10 @@ class VideoPlayer {
     constructor(videoElement, options) {
         this.video_title = options.title;
         this.video = videoElement.cloneNode(true);
-
-        this.container = createElement('div', {classes: ['video-container', 'unselectabe']});
+        
+        this.container = createElement('div', {
+            classes: ['video-container', 'unselectabe']
+        });
         videoElement.parentNode.replaceChild(this.container, videoElement);
 
         this.video.addEventListener('loadeddata', e => {
@@ -106,18 +113,26 @@ class VideoPlayer {
     }
 
     init_title() {
-        this.title = createElement('div', {classes: ['video-title', 'unselectable']});
+        this.title = createElement('div', {
+            classes: ['video-title', 'unselectable']
+        });
         this.title.appendChild(document.createTextNode(this.video_title));
     }
 
     init_captions() {
-        this.captions = createElement('div', {classes: ['captions', 'unselectable']});
-        this.caption = createElement('div', {id: 'caption'});
+        this.captions = createElement('div', {
+            classes: ['captions', 'unselectable']
+        });
+        this.caption = createElement('div', {
+            id: 'caption'
+        });
         this.captions.appendChild(this.caption);
     }
 
     init_controls() {
-        this.controls = createElement('div', {classes: ['video-controls', 'unselectable']})
+        this.controls = createElement('div', {
+            classes: ['video-controls', 'unselectable']
+        });
 
         this.buttons = document.createElement('div');
         this.buttons.className = 'buttons';
@@ -142,37 +157,54 @@ class VideoPlayer {
     }
 
     init_progress_bar() {
-        this.pbar = createElement('div', {classes: ['progress-bar']});
-        this.pstate = createElement('div', {classes: ['progress-state']});
-        
-        this.pslider = createElement('input', {classes: ['progress-bar', 'right'], attrs: {'type': 'range', 'min': '0', 'value': '0'}});
+        this.pbar = createElement('div', {
+            classes: ['progress-bar']
+        });
+        this.pstate = createElement('div', {
+            classes: ['progress-state']
+        });
+        this.pslider = createElement('input', {
+            classes: ['progress-bar', 'right'],
+            attrs: {'type': 'range', 'min': '0', 'value': '0'}
+        });
         this.pbar.appendChild(this.pstate);
         this.pbar.appendChild(this.pslider);     
     }
 
     init_play_btn() {
-        this.play_btn = createElement('button', {classes: ['play']});
+        this.play_btn = createElement('button', {
+            classes: ['play']
+        });
         this.play_btn.appendChild(Icons['play']());
         this.play_btn.appendChild(Icons['pause']());
     }
 
     init_time_label() {
-        this.time_label = createElement('span', {classes: ['time-label']});
+        this.time_label = createElement('span', {
+            classes: ['time-label']
+        });
     }
 
     init_fullscreen_btn() {
-        this.fs_btn = createElement('button', {classes: ['svg-icon', 'right']});
+        this.fs_btn = createElement('button', {
+            classes: ['svg-icon', 'right']
+        });
         this.fs_btn.appendChild(Icons['expand']());
     }
 
     init_settings_ui() {
-        this.settings = createElement('div', {classes: ['dropup', 'right']});
-
-        this.settings_btn = createElement('button', {classes: ['svg-icon', 'dropbtn', 'settings']});
+        this.settings = createElement('div', {
+            classes: ['dropup', 'right']
+        });
+        this.settings_btn = createElement('button', {
+            classes: ['svg-icon', 'dropbtn', 'settings']
+        });
         this.settings_btn.appendChild(Icons['gear']());
         this.settings.appendChild(this.settings_btn);
 
-        this.settings_menu = createElement('div', {classes: ['dropup-content']});
+        this.settings_menu = createElement('div', {
+            classes: ['dropup-content']
+        });
         this.settings.appendChild(this.settings_menu);
         
         this.settings_main = createElement('div');
@@ -185,72 +217,108 @@ class VideoPlayer {
 
         //
 
-        this.playback_speed_item = createElement('div', {id: 'opt1'});
+        this.playback_speed_item = createElement('div', {
+            id: 'opt1'
+        });
         this.settings_main.appendChild(this.playback_speed_item);
 
-        this.playback_link = createElement('a', {classes: ['st-item']});
+        this.playback_link = createElement('a', {
+            classes: ['st-item']
+        });
         this.playback_speed_item.appendChild(this.playback_link);
 
-        let playback_text = createElement('span', {classes: ['left', 'bold']});
+        let playback_text = createElement('span', {
+            classes: ['left', 'bold']
+        });
         playback_text.textContent = 'Playback Speed';
         this.playback_link.appendChild(playback_text);
 
-        this.playback_value = createElement('span', {classes: ['right']});
+        this.playback_value = createElement('span', {
+            classes: ['right']
+        });
         this.playback_value.textContent = 'Normal';
         this.playback_link.appendChild(this.playback_value);
 
-        this.playback_options = createElement('div', {classes: ['st-opt']});
+        this.playback_options = createElement('div', {
+            classes: ['st-opt']
+        });
         this.playback_options.appendChild(createElement('hr'));
         this.settings_options.appendChild(this.playback_options);
 
         //
 
-        this.captions_item = createElement('div', {id: 'opt2'});
+        this.captions_item = createElement('div', {
+            id: 'opt2'
+        });
         this.settings_main.appendChild(this.captions_item);
 
-        this.captions_link = createElement('a', {classes: ['st-item']});
+        this.captions_link = createElement('a', {
+            classes: ['st-item']
+        });
         this.captions_item.appendChild(this.captions_link);
 
-        let captions_text = createElement('span', {classes: ['left', 'bold']});
+        let captions_text = createElement('span', {
+            classes: ['left', 'bold']
+        });
         captions_text.textContent = 'Subtitles / CC';
         this.captions_link.appendChild(captions_text);
 
-        this.captions_value = createElement('span', {classes: ['right']});
+        this.captions_value = createElement('span', {
+            classes: ['right']
+        });
         this.captions_value.textContent = 'Disabled';
         this.captions_link.appendChild(this.captions_value);
 
-        this.captions_options = createElement('div', {classes: ['st-opt']});
+        this.captions_options = createElement('div', {
+            classes: ['st-opt']
+        });
         this.captions_options.appendChild(createElement('hr'));
         this.settings_options.appendChild(this.captions_options);
 
         //
 
-        this.quality_item = createElement('div', {id: 'opt3'});
+        this.quality_item = createElement('div', {
+            id: 'opt3'
+        });
         this.settings_main.appendChild(this.quality_item);
 
-        this.quality_link = createElement('a', {classes: ['st-item']});
+        this.quality_link = createElement('a', {
+            classes: ['st-item']
+        });
         this.quality_item.appendChild(this.quality_link);
 
-        let quality_text = createElement('span', {classes: ['left', 'bold']});
+        let quality_text = createElement('span', {
+            classes: ['left', 'bold']
+        });
         quality_text.textContent = 'Quality';
         this.quality_link.appendChild(quality_text);
 
-        this.quality_value = createElement('span', {classes: ['right']});
+        this.quality_value = createElement('span', {
+            classes: ['right']
+        });
         this.quality_link.appendChild(this.quality_value);
 
-        this.quality_options = createElement('div', {classes: ['st-opt']});
+        this.quality_options = createElement('div', {
+            classes: ['st-opt']
+        });
         this.quality_options.appendChild(createElement('hr'));
         this.settings_options.appendChild(this.quality_options);
     }
 
     init_volume_slider() {
-        this.volume_slider = createElement('div', {classes: ['volume-slider', 'right']});
-        this.vslider = createElement('input', {attrs: {'type': 'range', 'min': '0', 'max': '100', 'value': '100'}});
+        this.volume_slider = createElement('div', {
+            classes: ['volume-slider', 'right']
+        });
+        this.vslider = createElement('input', {
+            attrs: {'type': 'range', 'min': '0', 'max': '100', 'value': '100'}
+        });
         this.volume_slider.appendChild(this.vslider);
     }
 
     init_mute_btn() {
-        this.mute_btn = createElement('button', {classes: ['svg-icon', 'right', 'sound']});
+        this.mute_btn = createElement('button', {
+            classes: ['svg-icon', 'right', 'sound']
+        });
         this.mute_btn.appendChild(Icons['speaker']());
         this.mute_btn.appendChild(Icons['muted']());
     }
@@ -473,7 +541,7 @@ class VideoPlayer {
                     this.state.active_track = track;
                     this.state.active_track.mode = 'showing';
                     this.state.active_track.oncuechange = () => {
-                        if (this.state.active_track.activeCues[0] == undefined) {
+                        if (this.state.active_track.activeCues[0] === undefined) {
                             this.caption.textContent = '';
                             this.caption.style.display = 'none';
                         } else {
@@ -484,10 +552,7 @@ class VideoPlayer {
                 });
             }
 
-            if (label !== '') {
-                this.captions_value.textContent = label;
-            }
-
+            this.captions_value.textContent = label;
             reset_menu();
         };
 
