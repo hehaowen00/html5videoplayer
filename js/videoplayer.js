@@ -84,12 +84,11 @@ class VideoPlayer {
         });
 
         if (options.tracks !== undefined) {
-            options.tracks.map(track => {
+            options.tracks.map(track =>
                 this.video.appendChild(createElement('track', {
                     attrs: Object.fromEntries(Object.entries(track).filter(
                         ([k, v]) => track_attrs.includes(k)))
-                }));
-            });
+            })));
         }
 
         this.container = createElement('div', {
