@@ -73,6 +73,8 @@ const Icons = {
     }
 };
 
+const track_attrs = ['label', 'lang', 'src'];
+
 class VideoPlayer {
     constructor(videoElement, options) {
         this.video_title = options.title;
@@ -84,7 +86,8 @@ class VideoPlayer {
         if (options.tracks !== undefined) {
             options.tracks.map(track => {
                 this.video.appendChild(createElement('track', {
-                    attrs: track
+                    attrs: Object.fromEntries(Object.entries(track).filter(
+                        ([k, v]) => track_attrs.includes(k)))
                 }));
             });
         }
