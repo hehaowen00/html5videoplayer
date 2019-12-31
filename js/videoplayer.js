@@ -12,8 +12,8 @@ const toHHMMSS = function (secs) {
         .join(":")
 };
 
-let slider_fill = (element, second) => {
-    if(navigator.userAgent.search(/webkit/i)<=0) {
+let slider_fill = function (element, second) {
+    if (navigator.userAgent.search(/webkit/i) <= 0) {
         return;
     }
 
