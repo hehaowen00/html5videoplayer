@@ -77,7 +77,18 @@ class VideoPlayer {
     constructor(videoElement, options) {
         this.video_title = options.title;
         this.video = videoElement.cloneNode(true);
-        
+        setAttrs(this.video, {
+            'src': options.src
+        });
+
+        if (options.tracks !== undefined) {
+            options.tracks.map(track => {
+                this.video.appendChild(createElement('track', {
+                    attrs: track
+                }));
+            });
+        }
+
         this.container = createElement('div', {
             classes: ['video-container', 'unselectabe']
         });
