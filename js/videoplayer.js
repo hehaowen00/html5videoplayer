@@ -12,7 +12,11 @@ const toHHMMSS = function (secs) {
         .join(":")
 };
 
-let update_slider = (element, second) => {
+let slider_fill = (element, second) => {
+    if(navigator.userAgent.search(/webkit/i)<=0) {
+        return;
+    }
+
     let max = element.max;
     let min = element.min;
     let val = (element.value - min) / (max - min);
@@ -117,7 +121,7 @@ class VideoPlayer {
             this.video_duration = toHHMMSS(this.video.duration);
             this.time_label.textContent = toHHMMSS(0) + '/' + this.video_duration;
 
-            update_slider(this.vslider, 'white');
+            slider_fill(this.vslider, 'white');
         });       
     }
 
@@ -359,7 +363,7 @@ class VideoPlayer {
         this.video.addEventListener('timeupdate', () => {
             const pos = this.video.currentTime / this.video.duration;
             this.pslider.value = this.video.currentTime;
-            update_slider(this.pslider, 'transparent');
+            slider_fill(this.pslider, 'transparent');
 
             this.time_label.textContent = toHHMMSS(this.video.currentTime) + '/' + this.video_duration;
 
@@ -425,12 +429,12 @@ class VideoPlayer {
 
         this.pslider.oninput = () => {
             this.video.currentTime = this.pslider.value;
-            update_slider(this.pslider, 'transparent');
+            slider_fill(this.pslider, 'transparent');
         };
 
         this.vslider.oninput = () => {
             this.video.volume = this.vslider.value / 100.0;
-            update_slider(this.vslider, 'white');
+            slider_fill(this.vslider, 'white');
         };
 
         this.mute_btn.addEventListener('click', () => {
