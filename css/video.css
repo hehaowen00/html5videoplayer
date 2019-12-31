@@ -140,6 +140,13 @@
     outline: none;
 }
 
+.input[type=range]:focus {
+    outline: none !important;
+    outline-style:none !important;
+    box-shadow:none !important;
+    border-color:transparent !important;
+}
+
 .progress-bar input[type=range]::-webkit-slider-runnable-track {
     background: transparent;
     height: 5px;
@@ -191,9 +198,7 @@
     cursor: pointer;
     border-radius: 1.61803398875px;
     height: 5px;
-    background: white; 
-    border-color: white;
-    color: white;
+    -webkit-appearance: none !important;
 }
 
 .volume-slider input[type=range]::-moz-range-thumb {

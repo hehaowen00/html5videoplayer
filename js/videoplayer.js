@@ -12,6 +12,18 @@ const toHHMMSS = function (secs) {
         .join(":")
 };
 
+let update_slider = (element, second) => {
+    let max = element.max;
+    let min = element.min;
+    let val = (element.value - min) / (max - min);
+
+    element.style.backgroundImage = 
+        '-webkit-gradient(linear, left top, right top, '
+        + 'color-stop(' + val + ', #00b3ff), '
+        + 'color-stop(' + val + ', {})'.replace('{}', second)
+        + ')';
+};
+
 const createElement = function (element_type, {id, classes, attrs} = {}) {
     if (element_type === '' || element_type === undefined || element_type === null) {
         throw `invalid input for element_type: '${element_type}'`;
@@ -104,6 +116,8 @@ class VideoPlayer {
             setAttrs(this.pslider, {'max': this.video.duration});
             this.video_duration = toHHMMSS(this.video.duration);
             this.time_label.textContent = toHHMMSS(0) + '/' + this.video_duration;
+
+            update_slider(this.vslider, 'white');
         });       
     }
 
@@ -180,8 +194,9 @@ class VideoPlayer {
             classes: ['progress-bar', 'right'],
             attrs: {'type': 'range', 'min': '0', 'value': '0'}
         });
+
         this.pbar.appendChild(this.pstate);
-        this.pbar.appendChild(this.pslider);     
+        this.pbar.appendChild(this.pslider);
     }
 
     init_play_btn() {
@@ -344,6 +359,7 @@ class VideoPlayer {
         this.video.addEventListener('timeupdate', () => {
             const pos = this.video.currentTime / this.video.duration;
             this.pslider.value = this.video.currentTime;
+            update_slider(this.pslider, 'transparent');
 
             this.time_label.textContent = toHHMMSS(this.video.currentTime) + '/' + this.video_duration;
 
@@ -383,7 +399,7 @@ class VideoPlayer {
 
         this.container.addEventListener('mousemove', () => {
             toggleControls();
-        });
+        }); 
 
         this.container.addEventListener('mouseleave', () => {
             hideControls();
@@ -409,10 +425,12 @@ class VideoPlayer {
 
         this.pslider.oninput = () => {
             this.video.currentTime = this.pslider.value;
+            update_slider(this.pslider, 'transparent');
         };
 
         this.vslider.oninput = () => {
             this.video.volume = this.vslider.value / 100.0;
+            update_slider(this.vslider, 'white');
         };
 
         this.mute_btn.addEventListener('click', () => {
