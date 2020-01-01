@@ -11,3 +11,5 @@ TODO: Make compatible with webkit/mshtml browsers.
 ~~TODO: Fix video element alignment on non standard aspect ratio screens.~~
 
 TODO: Make SVG files into spritesheet.
+
+TODO: Implement HLS support.

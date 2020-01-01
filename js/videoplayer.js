@@ -12,7 +12,7 @@ const toHHMMSS = function (secs) {
         .join(":")
 };
 
-let slider_fill = function (element, second) {
+let sliderFill = function (element, second) {
     if (navigator.userAgent.search(/webkit/i) <= 0) {
         return;
     }
@@ -121,7 +121,7 @@ class VideoPlayer {
             this.video_duration = toHHMMSS(this.video.duration);
             this.time_label.textContent = toHHMMSS(0) + '/' + this.video_duration;
 
-            slider_fill(this.vslider, 'white');
+            sliderFill(this.vslider, 'white');
         });       
     }
 
@@ -363,7 +363,7 @@ class VideoPlayer {
         this.video.addEventListener('timeupdate', () => {
             const pos = this.video.currentTime / this.video.duration;
             this.pslider.value = this.video.currentTime;
-            slider_fill(this.pslider, 'transparent');
+            sliderFill(this.pslider, 'transparent');
 
             this.time_label.textContent = toHHMMSS(this.video.currentTime) + '/' + this.video_duration;
 
@@ -429,12 +429,12 @@ class VideoPlayer {
 
         this.pslider.oninput = () => {
             this.video.currentTime = this.pslider.value;
-            slider_fill(this.pslider, 'transparent');
+            sliderFill(this.pslider, 'transparent');
         };
 
         this.vslider.oninput = () => {
             this.video.volume = this.vslider.value / 100.0;
-            slider_fill(this.vslider, 'white');
+            sliderFill(this.vslider, 'white');
         };
 
         this.mute_btn.addEventListener('click', () => {
